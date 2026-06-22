@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HotelDataA.Moudls;
+using HotelDataA.Models;
 using HotelDataA.RoomMan;
 using Microsoft.Extensions.DependencyInjection;
 namespace ChkinWpf
@@ -19,11 +19,11 @@ namespace ChkinWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IdataDb _db;
+        private readonly IDataDb _db;
        // BindingList<Bookings> bookingsList=new BindingList<Bookings>();
-      
-        
-        public MainWindow(IdataDb db)
+
+
+        public MainWindow(IDataDb db)
         {
             InitializeComponent();
             _db=db;
@@ -41,11 +41,11 @@ namespace ChkinWpf
 
         }
 
-        private void ChekIn_Click_1(object sender, RoutedEventArgs e)
+        private void CheckIn_Click_1(object sender, RoutedEventArgs e)
         {
             var cIf = App.serviceProvider.GetService<CheckInForm>();
-            var moudel =( Bookings)((Button)e.Source).DataContext;
-            cIf.FilFrom(moudel);
+            var model =( Bookings)((Button)e.Source).DataContext;
+            cIf.FillFrom(model);
             cIf.Show();
         }
     }

@@ -7,20 +7,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddTransient<IDapAcasses,DapAcasses>();
-builder.Services.AddTransient<IDataAcsesLite, DataAcsesLite>();
+builder.Services.AddTransient<IDapAccess,DapAccess>();
+builder.Services.AddTransient<IDataAccessLite, DataAccessLite>();
 string dbChoice = builder.Configuration.GetValue<string>("DbChoice").ToLower();
 if (dbChoice=="sql")
 {
-    builder.Services.AddTransient<IdataDb, Sqldata>();
+    builder.Services.AddTransient<IDataDb, Sqldata>();
 }
 else if (dbChoice == "sqlite")
 {
-    builder.Services.AddTransient<IdataDb, LiteDbData>();
+    builder.Services.AddTransient<IDataDb, LiteDbData>();
 }
 else
 {
-    builder.Services.AddTransient<IdataDb, Sqldata>();
+    builder.Services.AddTransient<IDataDb, Sqldata>();
 }
 var app = builder.Build();
 

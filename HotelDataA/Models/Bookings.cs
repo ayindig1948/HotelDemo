@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelDataA.Moudls
+namespace HotelDataA.Models
 {
    public  class Bookings
     {

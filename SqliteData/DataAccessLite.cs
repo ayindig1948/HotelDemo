@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace SqliteData;
 
-public class DataAcsesLite : IDataAcsesLite
+public class DataAccessLite : IDataAccessLite
 {
     private readonly IConfiguration _config;
 
-    public DataAcsesLite(IConfiguration config)
+    public DataAccessLite(IConfiguration config)
     {
         _config=config;
     }
@@ -22,8 +22,8 @@ public class DataAcsesLite : IDataAcsesLite
         string cString=_config.GetConnectionString(cStringName);
         using (var connection = new SqliteConnection(cString))
         {
-            var roes = connection.Query<T>(sql, par);
-            return roes.ToList();
+            var rows = connection.Query<T>(sql, par);
+            return rows.ToList();
         }
     }
     public void Save<T>(string sql, T data, string cStringName)

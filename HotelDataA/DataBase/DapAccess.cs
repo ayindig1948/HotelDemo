@@ -11,45 +11,45 @@ using Microsoft.Extensions.Configuration;
 
 namespace HotelDataA.DataBase
 {
-    public class DapAcasses : IDapAcasses
+    public class DapAccess : IDapAccess
     {
-        private readonly IConfiguration _confi;
+        private readonly IConfiguration _config;
 
-        public DapAcasses(IConfiguration config)
+        public DapAccess(IConfiguration config)
         {
-            _confi = config;
+            _config = config;
         }
 
-        public List<T> loedData<T, P>(string sql, P parm, string csName, bool IsProcedure = false)
+        public List<T> LoadData<T, P>(string sql, P param, string csName, bool IsProcedure = false)
         {
 
-            string cs = _confi.GetConnectionString(csName);
+            string cs = _config.GetConnectionString(csName);
             CommandType type = CommandType.Text;
             if (IsProcedure == true)
             {
                 type = CommandType.StoredProcedure;
 
             }
-            using (var conctein = new SqlConnection(cs))
+            using (var connection = new SqlConnection(cs))
             {
-                var rooms = conctein.Query<T>(sql, parm, commandType: type).ToList<T>();
+                var rooms = connection.Query<T>(sql, param, commandType: type).ToList<T>();
                 return rooms;
             }
         }
 
 
-        public void Save<T>(string sql, T parm, string csName, bool IsProcedure= false)
+        public void Save<T>(string sql, T param, string csName, bool IsProcedure= false)
         {
-            string cs = _confi.GetConnectionString(csName);
+            string cs = _config.GetConnectionString(csName);
             CommandType type = CommandType.Text;
             if (IsProcedure == true)
             {
                 type = CommandType.StoredProcedure;
 
             }
-            using (var conctein = new SqlConnection(cs))
+            using (var connection = new SqlConnection(cs))
             {
-                conctein.Execute(sql, parm, commandType: type);
+                connection.Execute(sql, param, commandType: type);
 
             }
 

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HotelDataA.Moudls;
+using HotelDataA.Models;
 using HotelDataA.RoomMan;
 
 namespace ChkinWpf
@@ -21,15 +21,15 @@ namespace ChkinWpf
     /// </summary>
     public partial class CheckInForm : Window
     {
-        private readonly IdataDb _db;
+        private readonly IDataDb _db;
         private Bookings _data = null;
 
-        public CheckInForm(IdataDb db)
+        public CheckInForm(IDataDb db)
         {
             _db=db;
             InitializeComponent();
         }
-        public void FilFrom(Bookings data)
+        public void FillFrom(Bookings data)
         {
             _data=data;
             FirstNameText.Text = _data.FirstName;
@@ -39,9 +39,9 @@ namespace ChkinWpf
             TotelCostText.Text= String.Format("{0:c}", _data.totelPrice);
         }
 
-        private void ChekIn_Click(object sender, RoutedEventArgs e)
+        private void CheckIn_Click(object sender, RoutedEventArgs e)
         {
-            _db.Chakin(_data.Id
+            _db.CheckIn(_data.Id
                 );
             this.Close();
         }

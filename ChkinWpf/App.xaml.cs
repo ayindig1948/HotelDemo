@@ -21,30 +21,30 @@ namespace ChkinWpf
             
             base.OnStartup(e);
             var ser=new ServiceCollection();
-            ser.AddTransient<IDapAcasses,DapAcasses>();
+            ser.AddTransient<IDapAccess,DapAccess>();
          //   ser.AddTransient<>
-            ser.AddTransient<IdataDb, Sqldata>();
-            ser.AddTransient<IDataAcsesLite, DataAcsesLite>();
+            ser.AddTransient<IDataDb, Sqldata>();
+            ser.AddTransient<IDataAccessLite, DataAccessLite>();
 
 
             ser.AddTransient<MainWindow>();
             ser.AddTransient<CheckInForm>();
-            var bulder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            IConfiguration configuration = bulder.Build();
+            IConfiguration configuration = builder.Build();
             ser.AddSingleton(configuration);
             string dbChoice =configuration.GetValue<string>("DbChoice").ToLower();
             if (dbChoice == "sql")
             {
-                ser.AddTransient<IdataDb, Sqldata>();
+                ser.AddTransient<IDataDb, Sqldata>();
             }
             else if (dbChoice == "sqlite")
             {
-               ser.AddTransient<IdataDb, LiteDbData>();
+               ser.AddTransient<IDataDb, LiteDbData>();
             }
             else
             {
-               ser.AddTransient<IdataDb, Sqldata>();
+               ser.AddTransient<IDataDb, Sqldata>();
             }
           
             serviceProvider =ser.BuildServiceProvider();

@@ -1,4 +1,4 @@
-using HotelDataA.Moudls;
+using HotelDataA.Models;
 using HotelDataA.RoomMan;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,7 +7,7 @@ namespace HotelApp.Net.Pages;
 
 public class BookRoomModel : PageModel
 {
-    private readonly IdataDb _db;
+    private readonly IDataDb _db;
 
     [BindProperty(SupportsGet =true)]
     public string roomtypeName { get; set; }
@@ -22,7 +22,7 @@ public class BookRoomModel : PageModel
     [BindProperty]
     public string LastName { get; set; }
     public RoomType RoomType { get; set; }
-    public BookRoomModel(IdataDb db)
+    public BookRoomModel(IDataDb db)
     {
         _db=db;
     }

@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
-using HotelDataA.Moudls;
+using HotelDataA.Models;
 using HotelDataA.RoomMan;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HotelApp.Net.Pages
 {
-    public class LookkUpModel : PageModel
+    public class LookUpModel : PageModel
     {
-        private readonly IdataDb _db;
+        private readonly IDataDb _db;
 
         [DataType(DataType.Date)]
         [BindProperty(SupportsGet =true)]
@@ -20,7 +20,7 @@ namespace HotelApp.Net.Pages
         [BindProperty(SupportsGet =true)]
         public bool SearchIsE {  get; set; }=false;
         public List<RoomType> RoomTypes { get; set; }
-        public LookkUpModel(IdataDb db)
+        public LookUpModel(IDataDb db)
         {
             _db=db;
         }
@@ -28,7 +28,7 @@ namespace HotelApp.Net.Pages
         {
             if (SearchIsE==true)
           {
-             RoomTypes=_db.GeAvlRoomType(StartDate, EndDate);
+             RoomTypes=_db.GetAvailableRoomType(StartDate, EndDate);
 
            }
 

@@ -1,17 +1,17 @@
 ﻿@page
-@model HotelApp.Net.Pages.LookkUpModel
+@model HotelApp.Net.Pages.LookUpModel
 @{
 	ViewData["Title"] = "Room Search";
 }
 <h1>Room search </h1>
 
 <form method="post">   
-	<div class=" from-group">
+	<div class=" form-group">
 		<label asp-for="@Model.StartDate"></label>
 	<input type="date"asp-for="@Model.StartDate"/>
 </div>
 	
-		<div class=" from-group">
+		<div class=" form-group">
 			<label asp-for="@Model.EndDate" ></label>
 			<input type="date" asp-for="@Model.EndDate" />
 		</div>

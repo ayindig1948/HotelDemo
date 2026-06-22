@@ -38,7 +38,7 @@
                         </StackPanel>
 
                         <Button Margin="5" Padding="10" Grid.Row="0" Grid.Column="1" 
-                                Grid.RowSpan="4" VerticalAlignment="Center" Content="Check In" Click="ChekIn_Click_1"/>
+                                Grid.RowSpan="4" VerticalAlignment="Center" Content="Check In" Click="CheckIn_Click_1"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock FontWeight="Bold" Margin="5"><Run Text="Room:"/></TextBlock>
@@ -62,11 +62,11 @@
 
 
         <TextBox x:Name="lastname" HorizontalAlignment="Left" Margin="117,28,0,0"  VerticalAlignment="Top" Width="222"/>
-        <TextBlock HorizontalAlignment="Left" Margin="144,-6,0,0" TextWrapping="Wrap" Text="Pleese enter your LastName" VerticalAlignment="Top" Width="222" Height="19" FontSize =" 12"/>
+        <TextBlock HorizontalAlignment="Left" Margin="144,-6,0,0" TextWrapping="Wrap" Text="Please enter your LastName" VerticalAlignment="Top" Width="222" Height="19" FontSize =" 12"/>
 
 
 
-        <Button Content="Serch bookings" HorizontalAlignment="Left" Margin="117,60,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Search bookings" HorizontalAlignment="Left" Margin="117,60,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
 
 

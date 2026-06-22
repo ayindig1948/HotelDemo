@@ -37,6 +37,6 @@
             <TextBlock FontWeight="Bold" Margin="5"><Run Text="Total Cost:"/></TextBlock>
             <TextBlock x:Name="TotelCostText" Margin="5" />
         </StackPanel>
-        <Button Margin="5" Grid.Row="4" x:Name="ChekIn" Click="ChekIn_Click"> ConForm Check in</Button>
+        <Button Margin="5" Grid.Row="4" x:Name="CheckIn" Click="CheckIn_Click"> Confirm Check in</Button>
     </Grid>
 </Window>

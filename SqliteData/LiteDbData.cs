@@ -3,33 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HotelDataA.Moudls;
+using HotelDataA.Models;
 using HotelDataA.RoomMan;
 
 namespace SqliteData
 {
-    public class LiteDbData : IdataDb
+    public class LiteDbData : IDataDb
     {
-        private readonly IDataAcsesLite _db;
+        private readonly IDataAccessLite _db;
 
-        public LiteDbData( IDataAcsesLite db)
+        public LiteDbData( IDataAccessLite db)
         {
             _db=db;
         }
         string cName = "SqliteDB";
-        public void bookRoom(string firstName, string lastName, string RoomName, DateTime stratData, DateTime endDate)
+        public void bookRoom(string firstName, string lastName, string RoomName, DateTime startDate, DateTime endDate)
         {
-            var gusest = new Gusest() { FirstName = firstName, LastName = lastName };
+            var guest = new Guest() { FirstName = firstName, LastName = lastName };
 
             string sql = @"
 
 insert into Gusest (FirstName,LastName) values (@firstName,@lastName);";
             _db.Save(sql, new { firstName, lastName }, cName);
              sql = "select Id from gusest where FirstName=@firstName and LastName=@lastName";
-            gusest.Id = _db.LoadData<Gusest, dynamic>(sql, new { firstName = firstName, lastName = lastName }, cName).FirstOrDefault().Id;
+            guest.Id = _db.LoadData<Guest, dynamic>(sql, new { firstName = firstName, lastName = lastName }, cName).FirstOrDefault().Id;
             sql = "select * from RoomType t where t.name=@RoomName;";
             var type = _db.LoadData<RoomType, dynamic>(sql, new { RoomName }, cName).ToList().First();
-            TimeSpan timeSpan = endDate.Date.Subtract(stratData.Date);
+            TimeSpan timeSpan = endDate.Date.Subtract(startDate.Date);
 
 
 
@@ -42,7 +42,7 @@ or(b.Startdate<=@endDate and @endDate < b.EndDate)
 or(b.StartDate<=@startDate and @endDate < b.EndDate));";
             var room = _db.LoadData<Room, dynamic>(sql, new
             {
-                startDate = stratData,
+                startDate = startDate,
                 endDate
                 ,
                 Typeid = type.Id
@@ -50,10 +50,10 @@ or(b.StartDate<=@startDate and @endDate < b.EndDate));";
 
             var booking = new Bookings()
             {
-                GuestId = gusest.Id,
+                GuestId = guest.Id,
                 RoomId = room.ID,
                 RoomNumber = room.RoomNumber,
-                StartDate = stratData,
+                StartDate = startDate,
                 EndDate = endDate,
 
                 Price = timeSpan.Days * type.Price,
@@ -65,16 +65,16 @@ or(b.StartDate<=@startDate and @endDate < b.EndDate));";
                      cName);
         }
 
-        public void Chakin(int bookingId)
+        public void CheckIn(int bookingId)
         {
 
 
-            string sql = "Updat dbo.bookings set isChekedin=1 where  Id=@id; ";
+            string sql = "Update dbo.bookings set isChekedin=1 where  Id=@id; ";
             _db.Save(sql, new { id = bookingId }, cName);
         }
         
 
-        public List<RoomType> GeAvlRoomType(DateTime stratData, DateTime endDate)
+        public List<RoomType> GetAvailableRoomType(DateTime startDate, DateTime endDate)
         {
             string sql = @"select  t.Id,t.name, t.descreptin, t.Price
                           from Room r  
@@ -89,11 +89,11 @@ or(b.StartDate<=@startDate and @startDate<b.EndDate)
 )
 group by  t.Id,t.name, t.descreptin, t.Price
 ";
-            var otput=_db.LoadData<RoomType, dynamic>(sql, new { startDate = stratData, endDate }, cName);
-            otput.ForEach(x => x.Price = x.Price/ 10000);
+            var output=_db.LoadData<RoomType, dynamic>(sql, new { startDate = startDate, endDate }, cName);
+            output.ForEach(x => x.Price = x.Price/ 10000);
             
                 
-            return otput;
+            return output;
         }
 
 

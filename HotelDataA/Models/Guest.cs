@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelDataA.Moudls
+namespace HotelDataA.Models
 {
-   public class Gusest
+   public class Guest
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
